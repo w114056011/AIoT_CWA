@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taiwan Weather GIS</title>
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/tooltip.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <header class="header">
+            <h1>Taiwan Weather GIS</h1>
+            <div class="controls">
+                <button id="theme-toggle" class="btn">切換佈景 (Theme)</button>
+                <select id="region-selector">
+                    <option value="">選擇縣市 (Select Region)</option>
+                </select>
+            </div>
+        </header>
+        
+        <main class="main-content">
+            <div class="map-section">
+                <div class="layer-controls">
+                    <button id="layer-temp" class="layer-btn active">氣溫分布</button>
+                    <button id="layer-rain" class="layer-btn">降雨機率</button>
+                </div>
+                <div id="map"></div>
+                <div class="map-legend" id="legend">
+                    <h4 id="legend-title">氣溫分布</h4>
+                    <div class="legend-items"></div>
+                </div>
+            </div>
+            
+            <aside class="sidebar">
+                <div class="weather-card" id="weather-card">
+                    <h2 id="card-region">請選擇縣市</h2>
+                    <div class="weather-info" id="card-info" style="display: none;">
+                        <div class="weather-icon" id="card-icon">☀</div>
+                        <div class="weather-desc" id="card-desc"></div>
+                        <div class="weather-details">
+                            <p>氣溫: <span id="card-temp">--</span>°C</p>
+                            <p>濕度: <span id="card-hum">--</span>%</p>
+                            <p>風速: <span id="card-wind">--</span> m/s</p>
+                            <p>測站: <span id="card-station">--</span></p>
+                        </div>
+                    </div>
+                    <div class="loading" id="card-loading" style="display: none;">載入中...</div>
+                    <div class="error" id="card-error" style="display: none;">無法取得資料</div>
+                </div>
+
+                <div class="ai-summary" id="ai-summary" style="display: none;">
+                    <h3>智慧天氣小幫手 ✨</h3>
+                    <p id="ai-text">分析中...</p>
+                </div>
+                
+                <div class="chart-container">
+                    <canvas id="weather-chart"></canvas>
+                </div>
+                
+                <div class="info-footer">
+                    <p>最後更新: <span id="last-updated">--</span></p>
+                    <p>資料來源: <a href="https://opendata.cwa.gov.tw/" target="_blank">中央氣象署</a> (O-A0003-001)</p>
+                </div>
+            </aside>
+        </main>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <!-- Custom JS -->
+    <script src="/static/js/weather.js"></script>
+    <script src="/static/js/map.js"></script>
+</body>
+</html>
