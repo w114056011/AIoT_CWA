@@ -12,3 +12,59 @@
 .region-tooltip-permanent::before {
     display: none;
 }
+
+/* 測站數值標籤（永久顯示於測站點上） */
+.station-value-label {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    color: #f8fafc;
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9), 0 0 4px rgba(0, 0, 0, 0.7);
+    padding: 0;
+    pointer-events: none;
+}
+
+.station-value-label::before {
+    display: none;
+}
+
+/* 縣市邊界標籤 */
+.county-label {
+    background: rgba(15, 23, 42, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #e2e8f0;
+    font-size: 0.75rem;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+/* 測站名稱標籤（測站圖層，永久顯示站名） */
+.station-name-label {
+    background: rgba(15, 23, 42, 0.7);
+    border: 1px solid rgba(56, 189, 248, 0.4);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+    color: #e0f2fe;
+    font-size: 0.62rem;
+    font-weight: 500;
+    padding: 1px 4px;
+    border-radius: 3px;
+    white-space: nowrap;
+    pointer-events: none;
+}
+
+.station-name-label::before {
+    display: none;
+}
+
+/* 雷達無資料提示 */
+.radar-notice {
+    background: rgba(15, 23, 42, 0.9);
+    border: 1px solid rgba(251, 191, 36, 0.5);
+    color: #fde68a;
+    font-size: 0.8rem;
+    padding: 8px 12px;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}

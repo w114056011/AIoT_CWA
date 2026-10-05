@@ -16,54 +16,99 @@
 <body>
     <div class="dashboard-container">
         <header class="header">
-            <h1>Taiwan Weather GIS</h1>
+            <h1>🌏 台灣即時氣象</h1>
             <div class="controls">
-                <button id="theme-toggle" class="btn">切換佈景 (Theme)</button>
+                <button id="basemap-toggle" class="btn" data-mode="dark">🗺️ 街道底圖</button>
+                <button id="theme-toggle" class="btn">切換佈景</button>
                 <select id="region-selector">
                     <option value="">選擇縣市 (Select Region)</option>
                 </select>
             </div>
         </header>
-        
+
+        <!-- 頂部統計列 -->
+        <div class="stats-bar">
+            <div class="stat-item">
+                <span class="stat-label">測站數量</span>
+                <span class="stat-value" id="stat-count">--</span>
+                <span class="stat-sub">站</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">最高溫</span>
+                <span class="stat-value stat-hot" id="stat-max-temp">--</span>
+                <span class="stat-sub" id="stat-max-temp-station"></span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">最低溫</span>
+                <span class="stat-value stat-cold" id="stat-min-temp">--</span>
+                <span class="stat-sub" id="stat-min-temp-station"></span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">最大雨量</span>
+                <span class="stat-value stat-rain" id="stat-max-rain">--</span>
+                <span class="stat-sub" id="stat-max-rain-station"></span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">最大風速</span>
+                <span class="stat-value stat-wind" id="stat-max-wind">--</span>
+                <span class="stat-sub" id="stat-max-wind-station"></span>
+            </div>
+        </div>
+
         <main class="main-content">
             <div class="map-section">
                 <div class="layer-controls">
-                    <button id="layer-temp" class="layer-btn active">氣溫分布</button>
-                    <button id="layer-rain" class="layer-btn">降雨機率</button>
+                    <button class="layer-btn active" data-layer="temp">🌡️ 氣溫</button>
+                    <button class="layer-btn" data-layer="rain">🌧️ 雨量</button>
+                    <button class="layer-btn" data-layer="wind">💨 風速</button>
+                    <button class="layer-btn" data-layer="humidity">💧 濕度</button>
+                    <button class="layer-btn" data-layer="weather">⛅ 天氣</button>
+                    <button class="layer-btn" data-layer="stations">📍 測站</button>
+                    <button class="layer-btn" data-layer="radar">🛰️ 雷達</button>
                 </div>
                 <div id="map"></div>
                 <div class="map-legend" id="legend">
-                    <h4 id="legend-title">氣溫分布</h4>
+                    <h4 id="legend-title">氣溫</h4>
                     <div class="legend-items"></div>
                 </div>
             </div>
-            
+
             <aside class="sidebar">
                 <div class="weather-card" id="weather-card">
+                    <div class="section-title">地區天氣</div>
                     <h2 id="card-region">請選擇縣市</h2>
                     <div class="weather-info" id="card-info" style="display: none;">
-                        <div class="weather-icon" id="card-icon">☀</div>
-                        <div class="weather-desc" id="card-desc"></div>
+                        <div class="weather-top">
+                            <div class="weather-icon" id="card-icon">☀</div>
+                            <div class="weather-desc" id="card-desc"></div>
+                        </div>
                         <div class="weather-details">
-                            <p>氣溫: <span id="card-temp">--</span>°C</p>
-                            <p>濕度: <span id="card-hum">--</span>%</p>
-                            <p>風速: <span id="card-wind">--</span> m/s</p>
-                            <p>測站: <span id="card-station">--</span></p>
+                            <p>氣溫<span id="card-temp">--</span>°C</p>
+                            <p>濕度<span id="card-hum">--</span>%</p>
+                            <p>風速<span id="card-wind">--</span> m/s</p>
+                            <p class="detail-wide">測站<span id="card-station">--</span></p>
                         </div>
                     </div>
                     <div class="loading" id="card-loading" style="display: none;">載入中...</div>
                     <div class="error" id="card-error" style="display: none;">無法取得資料</div>
                 </div>
 
-                <div class="ai-summary" id="ai-summary" style="display: none;">
-                    <h3>智慧天氣小幫手 ✨</h3>
-                    <p id="ai-text">分析中...</p>
+                <div class="chart-section">
+                    <div class="section-title">24 小時預報</div>
+                    <div class="chart-container">
+                        <canvas id="weather-chart"></canvas>
+                    </div>
                 </div>
-                
-                <div class="chart-container">
-                    <canvas id="weather-chart"></canvas>
+
+                <!-- 天氣特報 -->
+                <div class="warnings-panel" id="warnings-panel" style="display: none;">
+                    <div class="warnings-header">
+                        <h3>⚠️ 天氣特報 <span class="warnings-badge" id="warnings-count">0</span></h3>
+                        <button id="warnings-toggle" class="warnings-toggle">收合</button>
+                    </div>
+                    <div class="warnings-list" id="warnings-list"></div>
                 </div>
-                
+
                 <div class="info-footer">
                     <p>最後更新: <span id="last-updated">--</span></p>
                     <p>資料來源: <a href="https://opendata.cwa.gov.tw/" target="_blank">中央氣象署</a> (O-A0003-001)</p>
