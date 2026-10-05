@@ -2,6 +2,12 @@
 
 一個即時顯示台灣各地氣象觀測資料的互動式網頁應用。後端以 **FastAPI** 串接中央氣象署 (CWA) 開放資料 API，前端以 **Leaflet** 地圖呈現測站級資料，並搭配 **Chart.js** 顯示 24 小時預報。
 
+## 🚀 Live Demo
+
+👉 **[https://taiwan-weather-gis-iota.vercel.app/](https://taiwan-weather-gis-iota.vercel.app/)**
+
+![Taiwan Weather GIS 截圖](docs/screenshot.png)
+
 ## ✨ 功能特性
 
 - **即時觀測資料**：全台灣氣象測站的氣溫、濕度、風速、風向、天氣現象
