@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -10,16 +12,20 @@ from app.routers.weather import router as weather_router
 # Load environment variables
 load_dotenv()
 
+# Resolve paths relative to this file so static/templates work regardless of
+# the working directory (important for Vercel serverless cold starts).
+BASE_DIR = Path(__file__).resolve().parent.parent
+
 app = FastAPI(
     title="Taiwan Weather GIS",
     version="1.0.0"
 )
 
 # Mount static files
-app.mount("/static", StaticFiles(directory="static"), name="static")
+app.mount("/static", StaticFiles(directory=BASE_DIR / "static"), name="static")
 
 # Templates
-templates = Jinja2Templates(directory="templates")
+templates = Jinja2Templates(directory=BASE_DIR / "templates")
 
 # Routers
 app.include_router(weather_router)
